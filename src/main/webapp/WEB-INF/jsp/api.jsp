@@ -55,7 +55,7 @@
                 window.swaggerUi = new SwaggerUi({
                     discoveryUrl: url,
                     dom_id: "swagger-ui-container",
-                    supportHeaderParams: false,
+                    supportHeaderParams: true,
                     supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
                     apiKey: "",
                     onComplete: function (swaggerApi, swaggerUi) {
