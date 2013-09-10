@@ -51,7 +51,7 @@
             displaySwaggerDocuments();
 
             function displaySwaggerDocuments() {
-                var url = '<c:url value="/api/resourceList"/>';
+                var url = '<c:url value="http://force-com-rest-swagger.herokuapp.com/api/resourceList"/>';
                 window.swaggerUi = new SwaggerUi({
                     discoveryUrl: url,
                     dom_id: "swagger-ui-container",
