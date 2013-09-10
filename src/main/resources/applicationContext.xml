@@ -26,12 +26,12 @@
 
     <fss:oauth>
         <fss:oauthInfo endpoint="http://login.salesforce.com"
-                       oauth-key="#{systemEnvironment['OAUTH_CLIENT_KEY']}"
-                       oauth-secret="#{systemEnvironment['OAUTH_CLIENT_SECRET']}"/>
+                       oauth-key="3MVG9yZ.WNe6byQAgr3cpUvnVaKxSinxuTYAI_i3tcbnKYp0Fr6KaaCB1cAHXqmPcVelRbd.cQKuNSytiFT0Q"
+                       oauth-secret="6644138216415753426"/>
     </fss:oauth>
     
     <security:http use-expressions="true">
-        <security:intercept-url pattern="/people/*" access="isAuthenticated()" />
+        <security:intercept-url pattern="/api/*" access="isAuthenticated()" />
     </security:http>
 
 </beans>
