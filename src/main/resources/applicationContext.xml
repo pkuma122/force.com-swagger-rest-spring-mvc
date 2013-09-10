@@ -33,5 +33,8 @@
     <security:http use-expressions="true">
         <security:intercept-url pattern="/api/*" access="isAuthenticated()" />
     </security:http>
+    
+      <!--suppress SpringModelInspection -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>
