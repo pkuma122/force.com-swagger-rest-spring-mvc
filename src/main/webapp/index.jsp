@@ -114,7 +114,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
    
     <script src="/resources/bootstrap/js/bootstrap.min.js" ></script>
-    <script src="/resources/bootstrap/js/google-code-prettify/prettify.js"></script>
+    <script src="/resources/bootstrap/js/prettify.js"></script>
     <script src="/resources/bootstrap/js/application.js"></script>
   </body>
 </html>
