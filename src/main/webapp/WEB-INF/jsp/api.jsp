@@ -56,7 +56,7 @@
                     dom_id: "swagger-ui-container",
                     supportHeaderParams: true,
                     supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-                    apiKey: "",
+                    apiKey: "Authorization",
                     onComplete: function (swaggerApi, swaggerUi) {
                         if (console) {
                             console.log("Loaded SwaggerUI")
