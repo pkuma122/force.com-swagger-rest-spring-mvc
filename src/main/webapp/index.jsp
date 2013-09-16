@@ -61,7 +61,7 @@
         </div>
 
         <p>
-          <a href="<c:url value="/api/"/>" class="btn btn-primary btn-large">Login to Swagger</a>
+          <a href="<c:url value="/api/"/>" class="btn btn-primary btn-large">Login to Salesforce</a>
         </p>
 
         <ul class="masthead-links">
