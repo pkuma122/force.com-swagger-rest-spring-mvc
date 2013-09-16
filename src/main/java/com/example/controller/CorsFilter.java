@@ -2,25 +2,18 @@ package com.example.controller;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-public class CorsFilter extends OncePerRequestFilter {
+public class CorsFilter {
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-        if (request.getHeader("Access-Control-Request-Method") != null && "OPTIONS".equals(request.getMethod())) {
-            // CORS "pre-flight" request
-            response.addHeader("Access-Control-Allow-Origin", "*");
-            response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-            response.addHeader("Access-Control-Allow-Headers", "Content-Type");
-            response.addHeader("Access-Control-Max-Age", "1800");//30 min
-        }
-        filterChain.doFilter(request, response);
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public void commonOptions(HttpServletResponse theHttpServletResponse) throws IOException {
+        theHttpServletResponse.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with, my-cool-header");
+        theHttpServletResponse.addHeader("Access-Control-Max-Age", "60"); // seconds to cache preflight request --> less OPTIONS traffic
+        theHttpServletResponse.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        theHttpServletResponse.addHeader("Access-Control-Allow-Origin", "*");
     }
 }
