@@ -3,6 +3,7 @@ package com.example.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,8 @@ public class AccountController {
 	 @ApiError(code = 500, reason = "Process error")
 	 @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	 public @ResponseBody List<Account> showAllAccounts() {
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
 	    return accountService.listAccounts();
 	}
 	
@@ -40,20 +43,26 @@ public class AccountController {
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid ID supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
-    	return accountService.findAccountById(accountId);
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+		return accountService.findAccountById(accountId);
     }
 	
 	@ApiOperation(value = "Delete a account", notes = "Delete a specific account with the given ID", httpMethod = "DELETE")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody String deleteAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
-    	return accountService.deleteAccount(accountId);
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+		return accountService.deleteAccount(accountId);
     }
 	
 	@ApiOperation(value = "Create a account using Parameters", notes = "Creates a new account in salesforce using Param", httpMethod = "POST")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String createAccountFromParamName(@ApiParam(internalDescription = "java.lang.string", value="string", name = "Name", required = false) @RequestParam(required = true) String name) {	
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
 		return accountService.createAccount(name);
     }
 	
@@ -61,12 +70,16 @@ public class AccountController {
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public @ResponseBody String createAccountFromJSON(@RequestBody Account newAccount){	
-    	return accountService.createAccount(newAccount);
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+		return accountService.createAccount(newAccount);
     }
 	
 	@ApiOperation(value = "Update Account", notes = "Update a existing Account", httpMethod = "POST") 
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
 	 public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
+		HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
 		return accountService.updateAccount(accountId, account);
 	 }
 }
