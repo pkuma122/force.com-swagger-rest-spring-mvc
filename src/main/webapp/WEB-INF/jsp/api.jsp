@@ -96,9 +96,9 @@
           <a class="brand" href="/">Force.com REST with Swagger</a>
           <div class="nav-collapse collapse">
             <ul id="navlist" class="nav">
-              <li id="navindex"><a href="/force-swagger-spring-rest-example">Home</a></li>
-              <li id="navindex"><a href="/force-swagger-spring-rest-example/model">Model</a></li>
-              <li id="navindex"><a href="/force-swagger-spring-rest-example/controller">Controller</a></li>
+              <li id="navindex"><a href="#">Home</a></li>
+              <li id="navindex"><a href="/model">Model</a></li>
+              <li id="navindex"><a href="/controller">Controller</a></li>
               <li><a href="https://github.com/thysmichels/force.com-swagger-rest-spring-mvc">Source</a></li>
               <li><a href="https://github.com/thysmichels/force.com-swagger-rest-spring-mvc/issues">Issues</a></li>
             </ul>
