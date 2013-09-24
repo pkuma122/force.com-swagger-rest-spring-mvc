@@ -35,12 +35,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/force-swagger-spring-rest-example">Force.com REST with Swagger</a>
+          <a class="brand" href="#">Force.com REST with Swagger</a>
           <div class="nav-collapse collapse">
             <ul id="navlist" class="nav">
-              <li id="navindex"><a href="/force-swagger-spring-rest-example">Home</a></li>
-              <li id="navindex"><a href="/force-swagger-spring-rest-example/model">Model</a></li>
-              <li id="navindex"><a href="/force-swagger-spring-rest-example/controller">Controller</a></li>
+              <li id="navindex"><a href="#">Home</a></li>
+              <li id="navindex"><a href="/model">Model</a></li>
+              <li id="navindex"><a href="/controller">Controller</a></li>
               <li><a href="https://github.com/thysmichels/force.com-swagger-rest-spring-mvc">Source</a></li>
               <li><a href="https://github.com/thysmichels/force.com-swagger-rest-spring-mvc/issues">Issues</a></li>
             </ul>
@@ -50,7 +50,7 @@
     </div>
 <div id="content">
 	<div class="container">
-		<form class="form-horizontal" method="POST" action="/force-swagger-spring-rest-example/controller/generate">
+		<form class="form-horizontal" method="POST" action="/controller/generate">
              <fieldset>
              	<div class="control-group">
              		<label>Select sobject to generate controller for:</label>
