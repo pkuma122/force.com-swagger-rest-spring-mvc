@@ -23,14 +23,11 @@
         <property name="suffix" value=".jsp" />
         <property name="redirectHttp10Compatible" value="false" />
     </bean>
-
-	<!-- 3MVG9yZ.WNe6byQAgr3cpUvnVaJknkQvyFitZrpeBkfrAEE8febYJF8qDT_3njgyE6qTrM8xnzKMl_2ZhXFt7
-	//1340342372549295815
- 	-->
+	
     <fss:oauth>
         <fss:oauthInfo endpoint="http://login.salesforce.com"
-                       oauth-key="3MVG9yZ.WNe6byQAgr3cpUvnVaKxSinxuTYAI_i3tcbnKYp0Fr6KaaCB1cAHXqmPcVelRbd.cQKuNSytiFT0Q"
-                       oauth-secret="6644138216415753426"/>
+                       oauth-key="#{systemEnvironment['OAUTH_CLIENT_KEY']}"
+                       oauth-secret="#{systemEnvironment['OAUTH_CLIENT_SECRET']}"/>
     </fss:oauth>
     
     <security:http use-expressions="true">
