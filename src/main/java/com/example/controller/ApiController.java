@@ -12,7 +12,7 @@ import com.knappsack.swagger4springweb.controller.ApiDocumentationController;
 public class ApiController extends ApiDocumentationController{
 	
 	public ApiController() {
-		setBasePath("https://force-com-rest-swagger.herokuapp.com/api");
+		setBasePath("https://force-com-rest-swagger.herokuapp.com");
         setBaseControllerPackage("com.example.controller.api");
         setBaseModelPackage("com.example.model");
         setApiVersion("v1");
