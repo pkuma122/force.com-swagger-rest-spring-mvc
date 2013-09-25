@@ -33,11 +33,7 @@
     <security:http use-expressions="true">
         <security:intercept-url pattern="/api/*" access="isAuthenticated()" />
     </security:http>
-    
-    <bean id="corsFilter" class="com.example.controller.CorsFilter" />
-    
-   
+     
       <!--suppress SpringModelInspection -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
-
 </beans>
