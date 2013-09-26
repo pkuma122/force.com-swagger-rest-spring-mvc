@@ -29,7 +29,7 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 	
-	 @ApiOperation(value = "Find all accounts", notes = "Get all account currently available", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	 @ApiOperation(value = "Get all accounts", notes = "Get all account (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	 @ApiError(code = 500, reason = "Process error")
 	 @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	 public @ResponseBody List<Account> showAllAccounts(final HttpServletResponse response) {
@@ -37,7 +37,7 @@ public class AccountController {
 	    return accountService.listAccounts();
 	}
 	
-	@ApiOperation(value = "Find account by Id", notes = "Get account by specifying Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get account by Id", notes = "Get account by specifying Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid ID supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, final HttpServletResponse response) {
