@@ -5,7 +5,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Swagger with Force.com</title>
+    <title>Force.com RESTful Services with Swagger</title>
     <meta name="description" content="Force.com REST API with Swagger">
     <meta name="author" content="Thys Michels">
     <meta name="keywords" content="Salesforce, REST, Swagger">
@@ -36,7 +36,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/">Force.com REST with Swagger</a>
+          <a class="brand" href="/">Force.com RESTful Services with Swagger</a>
           <div class="nav-collapse collapse">
             <ul id="navlist" class="nav">
               <li id="navindex"><a href="#">Home</a></li>
@@ -73,28 +73,28 @@
       <div class="marketing">
         <div class="introduction">
           <h2>Introduction</h2>
-          <p>Creating a REST interface to manage data between salesforce and other systems can be tough. Using Swagger you can create a visual REST interface to your Salesforce data. This provides the ability for developers and QA to develop and test your endpoints.</p>
+          <p>Creating a REST interface to manage data between salesforce and other systems can be tough. Using Swagger you can create a visual REST interface to your Salesforce data. This provides the ability for developers and QA to develop and customers to consume your service end points.</p>
         </div>
 
         <hr class="soften">
-        <h1>Visualizing your RESTful web services.</h1>
+        <h1>Start visualizing your Force.com RESTful services.</h1>
         <hr class="soften">
 
         <div class="row-fluid">
           <div class="span4">
             <img class="bs-icon">
             <h2>Describing</h2>
-            <p>Describing your endpoint providing contextual metadata on what the purpose is of the Endpoint. How providing an interface to enter request parameters or provide the structure of the accepted JSON. After the endpoint has been invoked output will be in the specified format.This provides a easier way to develop, test and document your endpoints.</p>
+            <p>Describing your end point providing contextual metadata on what the purpose is of the service end point. How providing an interface to enter request parameters or provide the structure of the accepted JSON. After the service end point has been invoked output will be in the specified format.This provides a easier way to develop, test and document your service end points.</p>
           </div>
           <div class="span4">
             <img class="bs-icon">
             <h2>Consuming and Producing</h2>
-            <p>Consuming of services through the visual interface takes the time to run command line, provides output in an easy to read format, provide error codes and possible desciptions on what the may mean. Producing of services is easy through the use of Swagger specific annotations you can create your endpoint documentation in minutes.</p>
+            <p>Consuming of services through the visual interface takes the time to run command line, provides output in an easy to read format, provide error codes and possible descriptions on what the may mean. Producing of services is easy through the use of Swagger specific annotations you can create your service end point documentation in minutes.</p>
          </div>
           <div class="span4">
             <img class="bs-icon">
             <h2>Visualizing</h2>
-            <p>The visualizing of endpoint provides an great overview of all the endpoints, all the services requests per endpoint and also metadata about the endpoints.</p>
+            <p>The visualizing of service end point provides an great overview of all the service end points, all the services requests per end point and also metadata about service each end points.</p>
           </div>
         </div>
       </div>

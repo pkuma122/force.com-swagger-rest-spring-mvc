@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <title>Salesforce Spring MVC Swagger</title>
+    <title>Force.com RESTful Services with Swagger</title>
     <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
 
 	<link href='<c:url value="/resources/bootstrap/css/bootstrap.min.css"/>' rel="stylesheet">
@@ -93,7 +93,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/">Force.com REST with Swagger</a>
+          <a class="brand" href="/">Force.com RESTful Services with Swagger</a>
           <div class="nav-collapse collapse">
             <ul id="navlist" class="nav">
               <li id="navindex"><a href="#">Home</a></li>

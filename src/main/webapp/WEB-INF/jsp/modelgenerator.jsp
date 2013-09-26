@@ -5,7 +5,7 @@
 <<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Swagger with Force.com</title>
+    <title>Force.com RESTful Services with Force.com</title>
     <meta name="description" content="Force.com REST API with Swagger">
     <meta name="author" content="Thys Michels">
     <meta name="keywords" content="Salesforce, REST, Swagger">
@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Force.com REST with Swagger</a>
+          <a class="brand" href="#">Force.com RESTful Services with Swagger</a>
           <div class="nav-collapse collapse">
             <ul id="navlist" class="nav">
               <li id="navindex"><a href="#">Home</a></li>
