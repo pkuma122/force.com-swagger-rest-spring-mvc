@@ -2,7 +2,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>hello-java-spring-force_dot_com</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -112,6 +111,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+                <version>2.3.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -142,4 +142,7 @@
             </plugin>
         </plugins>
     </build>
+    <artifactId>force.com-rest-swagger</artifactId>
+    <name>force.com-rest-swagger</name>
+    <url>http://thysmichels.com</url>
 </project>

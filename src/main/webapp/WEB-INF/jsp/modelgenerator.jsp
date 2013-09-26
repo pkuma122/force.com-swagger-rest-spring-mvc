@@ -75,9 +75,8 @@
 		        		<input id="packageName" name="packageName" value="" placeholder="Type package name" required/>
 		      	</div>
  				<div class="control-group">
- 					<label>Select to Include Custom fields</label>
  					<label class="checkbox">
-  						<input type="checkbox" name="customfields">
+  						Select to Include Custom fields<input type="checkbox" name="customfields">
 					</label>
  				</div>
  				      	

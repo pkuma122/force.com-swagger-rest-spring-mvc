@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,34 +29,33 @@ import com.example.service.LoginService;
 @RequestMapping("/controller")
 public class GenerateControllerController {
 	
+
 	@Autowired
 	LoginService loginService;
 	
 	@RequestMapping(value="")
-	public String salesforceObjectModelView(Map<String, Object> map){
+	public String salesforceObjectModelView(Map<String, Object> map, Model model){
 		map.put("sObject", loginService.getForceApi().describeGlobal().getSObjects());
 		return "controllergenerator";
 	}
 	
 	@RequestMapping(value="/generate",  method=RequestMethod.POST)
-	public void generateSalesforceController(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void generateSalesforceController(Map<String, Object> map, Object command, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		final ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(
 				request);
 		final Map<String, String> formData = new FormHttpMessageConverter()
 				.read(null, inputMessage).toSingleValueMap();
 		
+		List<String> operationsList = new ArrayList<String>();
+	
 		String sobjectName = formData.get("sobject");
 		String packageName = formData.get("packageName");
-		String operations = formData.get("operations");
-		List<String> operationsList = new ArrayList<String>();
 		
-		DescribeSObject ds = loginService.getForceApi().describeSObject(sobjectName);
-    	
 		File file = File.createTempFile(sobjectName, ".java");
 		FileInputStream fileIn = new FileInputStream(file);
 		OutputStream output = new FileOutputStream(file);
 		ControllerGenerator cg = new ControllerGenerator();
-		cg.generateController(output, packageName, sobjectName, operationsList);
+		cg.generateController(output, packageName, sobjectName);
 		
 	    output.flush();
 	    output.close();
@@ -69,6 +69,4 @@ public class GenerateControllerController {
 	    	 file.deleteOnExit();
 	     }
 	}
-
-
 }

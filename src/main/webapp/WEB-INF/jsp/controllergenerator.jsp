@@ -66,17 +66,7 @@
 		        		<input id="packageName" name="packageName" value="" placeholder="Type package name" required/>
 		      	</div>
  				
- 				<div class="control-group">
- 				<label>Select your operations:</label>
- 				<select id="operations" name="operations" multiple="multiple">
-  					<option>Show All</option>
-  					<option>Find By Id</option>
-  					<option>Add</option>
-  					<option>Update</option>
-  					<option>Delete</option>
-				</select>
- 				</div>
- 				      	
+ 			      	
                 <div class="control-group">
 					<div class="controls">
                     	<input type="submit" value="Generate" class="btn btn-primary">
