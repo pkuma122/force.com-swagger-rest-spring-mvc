@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,4 +64,20 @@ public class AccountController {
 		updateAccount.setName(accountName);
 		return accountService.updateAccount(accountId, updateAccount);
 	}
+	
+   @ApiOperation(value = "Create a account using JSON", notes = "Creates a new account in salesforce", httpMethod = "POST")
+   @ApiError(code = 500, reason = "Process error")
+   @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+   public @ResponseBody String createAccountFromJSON(@RequestBody Account newAccount){
+       String id = accountService.createAccount(newAccount);
+       return "{id:" + id +"}";
+   }
+   
+   @ApiOperation(value = "Update Account", notes = "Update a existing Account", httpMethod = "POST")
+   @RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
+    public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
+            accountService.updateAccount(accountId, account);
+            return "{status: success}";
+    }
+
 }
