@@ -56,7 +56,7 @@ public class AccountController {
 	
 	@ApiOperation(value = "Update an existing account", notes = "Update a existing Account", httpMethod = "POST") 
 	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",name = "accountName", required = true) @RequestParam(required=true) String accountName) {
+	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",  value = "string", name = "accountName", required = true) @RequestParam String accountName) {
 		Account updateAccount = new Account();
 		updateAccount.setName(accountName);
 		return accountService.updateAccount(accountId, updateAccount);
