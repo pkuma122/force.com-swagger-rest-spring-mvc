@@ -27,7 +27,7 @@ public class AccountController {
 	 @Autowired
 	 AccountService accountService;
 	
-	@ApiOperation(value = "Get all accounts", notes = "Get all account (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get all account (max:200)", notes = "Get all account (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiError(code = 500, reason = "Process error")
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Account> showAllAccounts() {
@@ -41,43 +41,24 @@ public class AccountController {
 		return accountService.findAccountById(accountId);
     }
 	
-	@ApiOperation(value = "Delete a account", notes = "Delete a specific account with the given Id", httpMethod = "DELETE")
+	@ApiOperation(value = "Delete a account giving an Id", notes = "Delete a account giving an Id", httpMethod = "DELETE")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/delete/{accountId}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody String deleteAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
 		return accountService.deleteAccount(accountId);
     }
 	
-	@ApiOperation(value = "Create a new account", notes = "Creates a new account in salesforce using Param", httpMethod = "POST")
+	@ApiOperation(value = "Create a new account", notes = "Creates a new account", httpMethod = "POST")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/new", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String createAccountFromParamName(@ApiParam(internalDescription = "java.lang.string", name = "name", required = true, value = "string") @RequestParam(required = true) String name) {	
 		return accountService.createAccount(name);
     }
 	
-	@ApiOperation(value = "Update an existing account", notes = "Update a existing Account", httpMethod = "POST") 
-	@ApiError(code = 500, reason = "Process error")
-	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",  value = "string", name = "accountName", required = true) @RequestParam(required=true) String accountName) {
-		System.out.println("Hier: " + accountName);
-		Account updateAccount = new Account();
-		updateAccount.setName(accountName);
-		return accountService.updateAccount(accountId, updateAccount);
+	@ApiOperation(value = "Update an exsiting account", notes = "Update a existing Account", httpMethod = "POST")
+	@RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
+	    public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
+	            accountService.updateAccount(accountId, account);
+	            return "{status: success}";
 	}
-	
-   @ApiOperation(value = "Create a account using JSON", notes = "Creates a new account in salesforce", httpMethod = "POST")
-   @ApiError(code = 500, reason = "Process error")
-   @RequestMapping(value="json", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-   public @ResponseBody String createAccountFromJSON(@RequestBody Account newAccount){
-       String id = accountService.createAccount(newAccount);
-       return "{id:" + id +"}";
-   }
-   
-   @ApiOperation(value = "Update Account", notes = "Update a existing Account", httpMethod = "POST")
-   @RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
-            accountService.updateAccount(accountId, account);
-            return "{status: success}";
-    }
-
 }
