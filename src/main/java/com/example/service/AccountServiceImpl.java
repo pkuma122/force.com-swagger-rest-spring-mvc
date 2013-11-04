@@ -17,7 +17,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public List<Account> listAccounts() {
 		try {
-			return loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
+			return loginService.getForceApi().query("SELECT Id, Name FROM Account", Account.class).getRecords();
 		} catch (Exception e) {
 			return null;
 		}
