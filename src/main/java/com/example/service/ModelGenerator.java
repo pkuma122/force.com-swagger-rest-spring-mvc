@@ -16,7 +16,6 @@ import com.force.api.DescribeSObject.Field;
 
 /**
  * Simple Swagger Model Generator
- *
  * @author Thys Michels
  */
 

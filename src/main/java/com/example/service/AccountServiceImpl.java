@@ -16,12 +16,20 @@ public class AccountServiceImpl implements AccountService{
 	
 	@Override
 	public List<Account> listAccounts() {
-        return loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
+		try {
+			return loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public Account findAccountById(String accountToFind) {
-        return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
+		try {
+			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -30,7 +38,7 @@ public class AccountServiceImpl implements AccountService{
 			loginService.getForceApi().deleteSObject("account", accountToDelete);
 			return "{status: success}";
 		}catch(ForceOAuthSessionExpirationException e){
-			return "{status : failure}";
+			return "{status : login failure}";
 		}catch (Exception e){
 			return "{status : failure}";
 		}
@@ -38,21 +46,33 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public String createAccount(String name) {
-		Account newAccount = new Account();
-		newAccount.setName(name);
-    	String id = loginService.getForceApi().createSObject("Account", newAccount);
-    	return "{id:" + id +"}";
+		try {
+			Account newAccount = new Account();
+			newAccount.setName(name);
+	    	String id = loginService.getForceApi().createSObject("Account", newAccount);
+	    	return "{id:" + id +"}";
+		} catch (Exception e) {
+			return "{status: failure}";
+		}
 	}
 
 	@Override
 	public String createAccount(Account newAccount) {
-		String id = loginService.getForceApi().createSObject("Account", newAccount);
-    	return "{id:" + id +"}";
+		try {
+			String id = loginService.getForceApi().createSObject("Account", newAccount);
+	    	return "{id:" + id +"}";
+		} catch (Exception e) {
+			return "{status: failure}";
+		}
 	}
 
 	@Override
 	public String updateAccount(String accountId, Account accountToUpdate) {
-		 loginService.getForceApi().updateSObject("Account", accountId, accountToUpdate);
-		 return "{status: success}";
+		try {
+			 loginService.getForceApi().updateSObject("Account", accountId, accountToUpdate);
+			 return "{status: success}";
+		} catch (Exception e) {
+			return "{status: failure}";
+		}
 	}
 }
