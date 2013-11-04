@@ -34,7 +34,7 @@ public class AccountController {
 	    return accountService.listAccounts();
 	}
 	
-	@ApiOperation(value = "Get a account by Id", notes = "Get account name by specifying a Salesforce account id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get a existing account by Id", notes = "Get account name by specifying a Salesforce account id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid Id supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/find/{accountId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
@@ -56,8 +56,8 @@ public class AccountController {
     }
 	
 	@ApiOperation(value = "Update an exsiting account by Id", notes = "Update a existing account by specifying a Salesforce id", httpMethod = "POST")
-	@RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
+	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
+	public @ResponseBody String updateAccount(@PathVariable(value="accountId") String accountId, @RequestParam Account account) {
 		return accountService.updateAccount(accountId, account);
 	}
 }
