@@ -6,7 +6,7 @@ import com.example.model.Account;
 
 public interface AccountService {
 	List<Account> listAccounts();
-	String findAccountById(String accountToFind);
+	Account findAccountById(String accountToFind);
 	String deleteAccount(String accountToDelete);
 	String createAccount(String name);
 	String createAccount(Account newAccount);

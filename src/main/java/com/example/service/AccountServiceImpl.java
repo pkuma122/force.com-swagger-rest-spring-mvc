@@ -24,11 +24,11 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public String findAccountById(String accountToFind) {
+	public Account findAccountById(String accountToFind) {
 		try {
-			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class).getName();
+			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
 		} catch (Exception e) {
-			return "{failure: no account found}";
+			return null;
 		}
 	}
 
