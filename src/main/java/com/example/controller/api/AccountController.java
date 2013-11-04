@@ -27,38 +27,37 @@ public class AccountController {
 	 @Autowired
 	 AccountService accountService;
 	
-	@ApiOperation(value = "Get all account (max:200)", notes = "Get all account (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get all account (max:200)", notes = "Get all existing account names (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiError(code = 500, reason = "Process error")
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Account> showAllAccounts() {
 	    return accountService.listAccounts();
 	}
 	
-	@ApiOperation(value = "Get account by Id", notes = "Get account details by specifying the account Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get a account by Id", notes = "Get account name by specifying a Salesforce account id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid Id supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/find/{accountId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
 		return accountService.findAccountById(accountId);
     }
 	
-	@ApiOperation(value = "Delete a account giving an Id", notes = "Delete a account giving an Id", httpMethod = "DELETE")
+	@ApiOperation(value = "Delete a account giving an Id", notes = "Delete a account by specifying a Salesforce account id", httpMethod = "DELETE")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/delete/{accountId}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody String deleteAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
 		return accountService.deleteAccount(accountId);
     }
 	
-	@ApiOperation(value = "Create a new account", notes = "Creates a new account", httpMethod = "POST")
+	@ApiOperation(value = "Create a new account", notes = "Creates a new Salesforce account by specifying a account name", httpMethod = "POST")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/new", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String createAccountFromParamName(@ApiParam(internalDescription = "java.lang.string", name = "name", required = true, value = "string") @RequestParam(required = true) String name) {	
 		return accountService.createAccount(name);
     }
 	
-	@ApiOperation(value = "Update an exsiting account", notes = "Update a existing Account", httpMethod = "POST")
+	@ApiOperation(value = "Update an exsiting account by Id", notes = "Update a existing account by specifying a Salesforce id", httpMethod = "POST")
 	@RequestMapping(value = "/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	    public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
-	            accountService.updateAccount(accountId, account);
-	            return "{status: success}";
+	public @ResponseBody String updateAccount(@PathVariable String accountId, @RequestBody Account account) {
+		return accountService.updateAccount(accountId, account);
 	}
 }
