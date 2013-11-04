@@ -2,12 +2,9 @@ package com.example.controller.api;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +33,7 @@ public class AccountController {
 	    return accountService.listAccounts();
 	}
 	
-	@ApiOperation(value = "Get account by Id", notes = "Get account by specifying Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
+	@ApiOperation(value = "Get account by Id", notes = "Get account details by specifying the account Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid Id supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/find/{accountId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
@@ -50,25 +47,18 @@ public class AccountController {
 		return accountService.deleteAccount(accountId);
     }
 	
-	@ApiOperation(value = "Create a account using Parameters", notes = "Creates a new account in salesforce using Param", httpMethod = "POST")
+	@ApiOperation(value = "Create a new account", notes = "Creates a new account in salesforce using Param", httpMethod = "POST")
     @ApiError(code = 500, reason = "Process error")
     @RequestMapping(value = "/new", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String createAccountFromParamName(@ApiParam(internalDescription = "java.lang.string", name = "name", required = true, value = "string") @RequestParam(required = true) String name) {	
 		return accountService.createAccount(name);
     }
 	
-	@ApiOperation(value = "Create a account using JSON", notes = "Creates a new account in salesforce", httpMethod = "POST")
-    @ApiError(code = 500, reason = "Process error")
-    @RequestMapping(value = "/new/json", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public @ResponseBody String createAccountFromJSON(@ApiParam(internalDescription = "com.example.model.Account", value="Account", name = "account", required = true) @RequestParam(required=true) Account account){	
-		return accountService.createAccount(account);
-    }
-	
-	@ApiOperation(value = "Update Account", notes = "Update a existing Account", httpMethod = "POST") 
+	@ApiOperation(value = "Update an existing account", notes = "Update a existing Account", httpMethod = "POST") 
 	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "com.example.model.Account", value="Account", name = "account", required = true) @RequestParam(required=true) Account account) {
-		
-		System.out.println("Update Account: " + accountId + " " + account.getName());
-		return accountService.updateAccount(accountId, account);
+	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",name = "accountName", required = true) @RequestParam(required=true) String accountName) {
+		Account updateAccount = new Account();
+		updateAccount.setName(accountName);
+		return accountService.updateAccount(accountId, updateAccount);
 	}
 }
