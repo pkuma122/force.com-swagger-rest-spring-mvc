@@ -36,7 +36,7 @@ public class AccountController {
 	@ApiOperation(value = "Get account by Id", notes = "Get account details by specifying the account Id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid Id supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/find/{accountId}", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
+    public @ResponseBody String findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
 		return accountService.findAccountById(accountId);
     }
 	
@@ -55,8 +55,10 @@ public class AccountController {
     }
 	
 	@ApiOperation(value = "Update an existing account", notes = "Update a existing Account", httpMethod = "POST") 
+	@ApiError(code = 500, reason = "Process error")
 	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
-	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",  value = "string", name = "accountName", required = true) @PathVariable String accountName) {
+	public @ResponseBody String updateAccount(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId, @ApiParam(internalDescription = "java.lang.string",  value = "string", name = "accountName", required = true) @RequestParam(required=true) String accountName) {
+		System.out.println("Hier: " + accountName);
 		Account updateAccount = new Account();
 		updateAccount.setName(accountName);
 		return accountService.updateAccount(accountId, updateAccount);

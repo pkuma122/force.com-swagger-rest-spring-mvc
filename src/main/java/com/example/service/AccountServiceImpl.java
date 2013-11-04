@@ -24,18 +24,18 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public Account findAccountById(String accountToFind) {
+	public String findAccountById(String accountToFind) {
 		try {
-			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
+			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class).getName();
 		} catch (Exception e) {
-			return null;
+			return "{failure: no account found}";
 		}
 	}
 
 	@Override
 	public String deleteAccount(String accountToDelete) {
 		try{
-			loginService.getForceApi().deleteSObject("account", accountToDelete);
+			loginService.getForceApi().deleteSObject("Account", accountToDelete);
 			return "{status: success}";
 		}catch(ForceOAuthSessionExpirationException e){
 			return "{status : login failure}";
