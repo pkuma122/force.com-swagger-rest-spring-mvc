@@ -56,7 +56,7 @@ public class AccountController {
     }
 	
 	@ApiOperation(value = "Update an exsiting account by Id", notes = "Update a existing account by specifying a Salesforce id", httpMethod = "POST")
-	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/update/{accountId}", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String updateAccount(@PathVariable(value="accountId") String accountId, @ApiParam(internalDescription = "java.lang.string", name = "name", required = true, value = "string") @RequestParam(required = true) String name) {
 		Account updateAccount = new Account();
 		updateAccount.setName(name);
