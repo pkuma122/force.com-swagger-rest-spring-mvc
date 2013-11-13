@@ -2,9 +2,12 @@ package com.example.controller.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.model.Account;
+import com.example.model.RESTErrorInfo;
+import com.example.service.AccountExceptions;
 import com.example.service.AccountService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiError;
@@ -25,13 +30,13 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Api(value = "Account operations", listingClass = "AccountController", basePath = "/api/v1/account", description = "All operations for accounts")
 public class AccountController {
 	
-	 @Autowired
-	 AccountService accountService;
+	@Autowired
+	AccountService accountService;
 	
 	@ApiOperation(value = "Get all account (max:200)", notes = "Get all existing account names (max:200)", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiError(code = 500, reason = "Process error")
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Account> showAllAccounts() {
+	public @ResponseBody List<Account> showAllAccounts()  {
 	    return accountService.listAccounts();
 	}
 	
@@ -67,4 +72,10 @@ public class AccountController {
 		updateAccount.setName(name);
 		return accountService.updateAccount(accountId, updateAccount);
 	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(AccountExceptions.class)
+	@ResponseBody RESTErrorInfo handleBadRequest(HttpServletRequest req, Exception ex) {
+	    return new RESTErrorInfo(req.getRequestURL(), ex);
+	} 
 }

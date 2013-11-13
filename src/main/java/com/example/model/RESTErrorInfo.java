@@ -2,11 +2,11 @@ package com.example.model;
 
 public class RESTErrorInfo {
 	
-	 public final String url;
+	 public final StringBuffer url;
 	 public final String ex;
 
-	 public RESTErrorInfo(String url, Exception ex) {
-	        this.url = url;
+	 public RESTErrorInfo(StringBuffer stringBuffer, Exception ex) {
+	        this.url = stringBuffer;
 	        this.ex = ex.getLocalizedMessage();
 	 }
 }
