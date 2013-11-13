@@ -15,20 +15,22 @@ public class AccountServiceImpl implements AccountService{
 	LoginService loginService;
 	
 	@Override
-	public List<Account> listAccounts() {
-		try {
-			return loginService.getForceApi().query("SELECT Id, Name FROM Account", Account.class).getRecords();
-		} catch (Exception e) {
-			return null;
+	public List<Account> listAccounts() throws AccountErrors{
+		List<Account> listOfAccounts = loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
+		if (listOfAccounts!=null){
+			return listOfAccounts;
+		} else{
+			throw new AccountErrors("{status: no accounts to display}");
 		}
 	}
 
 	@Override
-	public String findAccountById(String accountToFind) {
-		try {
-			return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class).toString();
-		} catch (Exception e) {
-			return "{Error: Could not find account}";
+	public Account findAccountById(String accountToFind) throws AccountErrors {
+		Account foundAccount = loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
+		if (foundAccount!=null){
+			return foundAccount;
+		} else{
+			 throw new AccountErrors("{status: account not found}");
 		}
 	}
 
@@ -38,9 +40,9 @@ public class AccountServiceImpl implements AccountService{
 			loginService.getForceApi().deleteSObject("Account", accountToDelete);
 			return "{status: success}";
 		}catch(ForceOAuthSessionExpirationException e){
-			return "{status : login failure}";
+			return "{status: login failure}";
 		}catch (Exception e){
-			return "{status : failure}";
+			return "{status: failure to delete account}";
 		}
 	}
 
@@ -52,7 +54,7 @@ public class AccountServiceImpl implements AccountService{
 	    	String id = loginService.getForceApi().createSObject("Account", newAccount);
 	    	return "{id:" + id +"}";
 		} catch (Exception e) {
-			return "{status: failure}";
+			return "{status: failure to create account}";
 		}
 	}
 
@@ -62,7 +64,7 @@ public class AccountServiceImpl implements AccountService{
 			String id = loginService.getForceApi().createSObject("Account", newAccount);
 	    	return "{id:" + id +"}";
 		} catch (Exception e) {
-			return "{status: failure}";
+			return "{status: failure to create account}";
 		}
 	}
 
@@ -72,7 +74,7 @@ public class AccountServiceImpl implements AccountService{
 			 loginService.getForceApi().updateSObject("Account", accountId, accountToUpdate);
 			 return "{status: success}";
 		} catch (Exception e) {
-			return "{status: failure}";
+			return "{status: failure to update account}";
 		}
 	}
 }
