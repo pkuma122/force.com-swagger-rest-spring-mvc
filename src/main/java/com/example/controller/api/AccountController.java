@@ -36,7 +36,7 @@ public class AccountController {
 	@ApiOperation(value = "Get a existing account by Id", notes = "Get account name by specifying a Salesforce account id", httpMethod = "GET", responseClass = "Account", multiValueResponse = true)
 	@ApiErrors(value = { @ApiError(code = 400, reason = "Invalid Id supplied"), @ApiError(code = 404, reason = "Account not found") })
 	@RequestMapping(value = "/find/{accountId}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Account findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
+	public @ResponseBody String findAccountById(@ApiParam(internalDescription = "java.lang.string", name = "accountId", required = true, value = "string") @PathVariable String accountId) {
 		return accountService.findAccountById(accountId);
     }
 	
