@@ -1,6 +1,16 @@
-# Spring MVC and Force.com template application
+# Exposing Force.com RESTful Services using Swagger
 
-This is a template for a web application that uses Spring MVC and Force.com. The sample code is a simple CRUD page that manipulates records for a single model object.
+## What is Swagger?
+Swagger is a specification and complete framework implementation for describing, producing, consuming, and visualizing RESTful web services.
+
+## Descibing your REST Endpoints
+Describing your end point providing contextual metadata on what the purpose is of the service end point. How providing an interface to enter request parameters or provide the structure of the accepted JSON. After the service end point has been invoked output will be in the specified format.This provides a easier way to develop, test and document your service end points.
+
+## Developing and Consuming your REST Endpoints
+Developing of services is easy through the use of Swagger specific annotations you can create your service end point documentation in minutes. Consuming of services through the visual interface takes the time to run command line, provides output in an easy to read format, provide error codes and possible descriptions on what the may mean.
+
+## Visualizing your REST Endpoints
+The visualizing of service end point provides an great overview of all the service end points, all the services requests per end point and also metadata about service each end points.
 
 ## Running the application locally
 
