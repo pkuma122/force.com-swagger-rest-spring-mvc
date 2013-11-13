@@ -2,12 +2,9 @@ package com.example.controller.api;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.model.Account;
-import com.example.model.RESTErrorInfo;
-import com.example.service.AccountExceptions;
 import com.example.service.AccountService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiError;
@@ -72,10 +67,4 @@ public class AccountController {
 		updateAccount.setName(name);
 		return accountService.updateAccount(accountId, updateAccount);
 	}
-	
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(AccountExceptions.class)
-	@ResponseBody RESTErrorInfo handleBadRequest(HttpServletRequest req, Exception ex) {
-	    return new RESTErrorInfo(req.getRequestURL(), ex);
-	} 
 }
