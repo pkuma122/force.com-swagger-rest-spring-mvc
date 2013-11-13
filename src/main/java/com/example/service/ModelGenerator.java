@@ -47,17 +47,13 @@ public class ModelGenerator {
 	        	}
 	        }
 	        
-	        Set<String> fieldNames = new HashSet<String>();
+	        Set<Field> fieldNames = new HashSet<Field>();
 	        for(Field f : describe.getFields()) {
 	        	if (customfields)
-	        		fieldNames.add(f.getName());
-	        	else
-	        	{
-	        		if (!f.isCustom())
-	        		  fieldNames.add(f.getName());
-	        	}
+	        		fieldNames.add(f);
+	        	else if (!f.isCustom())
+	        		fieldNames.add(f);
 	        }
-
 	        
 	        // package
 	        write(out,"package " + packageName + ";" + NEWLINE + NEWLINE);
@@ -105,31 +101,13 @@ public class ModelGenerator {
 	        write(out, TAB + "private Long dbid;" + NEWLINE);
 	        
 	        // add all private member variables
-	        for (Field field : describe.getFields()) 
-	        {
-	        String fieldNameLower = null;
-	        if (customfields)
-	        	{
-	        	if (field.getName().endsWith("__c"))
-	        	{
-	        		fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length()-3);
-	        	}
-	        	else
-	        	{
-	        		fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1, field.getName().length());
-	        	}
-	            // write private member
+	        for (Field field : fieldNames) {
+	        	String fieldNameLower = null;
+	     
+	        	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1, field.getName().length());
+	        
 	            write(out,TAB + "@JsonProperty(value=" + "\"" + capitalize(field.getName()) + "\"" + ")" + NEWLINE);
-	            write(out,TAB + "private " + getJavaType(field) + " " + fieldNameLower + ";" + NEWLINE);
-	        //}
-	        	}
-	        else{
-	        	if (!field.getName().endsWith("__c")){
-	        		fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1, field.getName().length());
-	        	}
-	        	write(out,TAB + "@JsonProperty(value=" + "\"" + capitalize(field.getName()) + "\"" + ")" + NEWLINE);
-		        write(out,TAB + "private " + getJavaType(field) + " " + fieldNameLower + ";" + NEWLINE);
-		     }
+	            write(out,TAB + "private " + getJavaType(field) + " " + fieldNameLower + ";" + NEWLINE); 	
 	        }
 	        
 	        // no arg constructor
@@ -148,49 +126,20 @@ public class ModelGenerator {
 	            write(out,TAB + " */" + NEWLINE);
 	            write(out,TAB + "public " + className + "(");
 	           
-	            for (Field field : describe.getFields()) {
+	            for (Field field : fieldNames) {
 	            	String fieldNameLower = null;
-	            	if (customfields)
-	            	{
-	     
-	            		if (field.getName().endsWith("__c"))
-	            		{
-	            			fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length()-3);
-	            		}
-	            		else
-	            		{
-	            			fieldNameLower = field.getName().substring(0, 1).toLowerCase()
-	                            + field.getName().substring(1, field.getName().length());
-	            		}
-	                
+	            	
+	            	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length());
+	            	
 	                write(out,getJavaType(field) + " " + fieldNameLower);
 	                if (++count != max) { write(out,", "); }
-	            	}
-	            	else
-	            	{
-	            		if (!field.getName().endsWith("__c")){
-	            			fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1, field.getName().length());
-	            		}
-	            		 write(out,getJavaType(field) + " " + fieldNameLower);
-	 	                if (++count != max) { write(out,", "); }
-	            	}
 	            }
 	            write(out,") {" + NEWLINE);
 	            
 	            //constructor body
-	            for (Field field : describe.getFields()) {
-	                String fieldNameLower;
-	                
-	                if (field.getName().endsWith("__c"))
-	                {
-	                 	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length()-3);
-	                }
-	                else
-	                {
-	             	   fieldNameLower = field.getName().substring(0, 1).toLowerCase()
-	                            + field.getName().substring(1, field.getName().length());
-	                }
-	    
+	            for (Field field : fieldNames) {
+	                String fieldNameLower = null;
+	                fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length());
 	                write(out,TAB + TAB + "this." + fieldNameLower + " = " + fieldNameLower + ";" + NEWLINE);
 	            }
 	            write(out,TAB + "}" + NEWLINE + NEWLINE);
@@ -209,18 +158,11 @@ public class ModelGenerator {
 	        
 	        
 	        // add getters for every private member variable (no need to hide anything)
-	        for (Field field : describe.getFields()) {
-	        String fieldNameLower;
-	        if (field.getName().endsWith("__c"))
-	       {
-	        	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length()-3);
-	       }
-	       else
-	       {
-	    	   fieldNameLower = field.getName().substring(0, 1).toLowerCase()
-	                   + field.getName().substring(1, field.getName().length());
-	       }
-	            
+	        for (Field field : fieldNames) {
+	        String fieldNameLower = null;
+	    
+	        	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length());
+	          
 	            write(out, TAB+ "@XmlAttribute(name = " + "\"" + capitalize(field.getName()) + "\"" + ")" + NEWLINE);
 	            write(out, TAB+ "@Column(name = " + "\""+ capitalize(field.getName()) + "\""+ ")" + NEWLINE);
 	            write(out,TAB + "public " + getJavaType(field) + " get" + capitalize(field.getName()) + "() {"
@@ -228,24 +170,14 @@ public class ModelGenerator {
 	            write(out,TAB + TAB + "return " + fieldNameLower + ";" + NEWLINE);
 	            write(out,TAB + "}" + NEWLINE);
 	            
-	            // for custom fields, add an alias getter without __c unless it conflicts with a standard field name
-	         
-	          }
-	        //}
-
+	                  
+	        }
+	        
 	        // add setters for all fields
-	        for (Field field : describe.getFields()) {
-	        String fieldNameUpper = field.getName();
-	        String fieldNameLower = null;
-	        if (field.getName().endsWith("__c"))
-	        {
-	        	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length()-3);
-	        }
-	        else
-	        {
-	        	 fieldNameLower = field.getName().substring(0, 1).toLowerCase()
-	                     + field.getName().substring(1, field.getName().length());
-	        }
+	        for (Field field : fieldNames) {
+	        	String fieldNameUpper = field.getName();
+	        	String fieldNameLower = null;
+	        	fieldNameLower = field.getName().substring(0, 1).toLowerCase() + field.getName().substring(1,field.getName().length());
 	        	
 	            write(out,TAB+ "/**" + NEWLINE);
 	            if ((!field.isNillable()) && (!field.isDefaultedOnCreate())) {
@@ -262,20 +194,13 @@ public class ModelGenerator {
 	                    + " " + fieldNameLower + ") {" + NEWLINE);
 	            write(out,TAB + TAB + "this." + fieldNameLower + " = " + fieldNameLower + ";" + NEWLINE);
 	            write(out,TAB + "}" + NEWLINE);
-
-	            // for custom fields, add an alias setter without __c unless it conflicts with a standard field name
-	           
-	           
-	       // }
+	        
 	        }
 	        write(out, NEWLINE);
 	        write(out, TAB + "@Override" + NEWLINE);
 	        write(out, TAB + "public String toString(){" + NEWLINE);
 	        write(out, TAB + "return ToStringBuilder.reflectionToString(this);}" + NEWLINE);
 
-	        // Note: there are no setters for things that can never be set, like Ids and system fields
-
-	        // class end
 	        write(out,"}" + NEWLINE);
 	       
 	        return true;   
@@ -309,7 +234,6 @@ public class ModelGenerator {
 	    	} else {
 	    		return new String(Character.toUpperCase(in.charAt(0))+in.substring(1,in.length()));
 	    	}
-	    	
 	    }
 	    
 	   

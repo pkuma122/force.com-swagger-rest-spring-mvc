@@ -17,6 +17,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.force.api.DescribeSObject;
 import com.example.service.LoginService;
@@ -36,17 +37,14 @@ public class ModelGeneratorController {
 	}
 	
 	@RequestMapping(value="/generate",  method=RequestMethod.POST)
-	public void generateSalesforceModel(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws IOException{
-		final ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(
-				request);
-		final Map<String, String> formData = new FormHttpMessageConverter()
-				.read(null, inputMessage).toSingleValueMap();
-		
+	public void generateSalesforceModel(Map<String, Object> map,
+			@RequestParam(value="sobject") String sobject,  
+			@RequestParam(value="version") String version,
+			@RequestParam(value="packageName") String packageName,
+			@RequestParam(value="customFileds") String customFields,
+			HttpServletResponse response) throws IOException{
+	
 		boolean boolCustomfields = false;
-		String sobject = formData.get("sobject");
-		String version = formData.get("version");
-		String packageName = formData.get("packageName");
-		String customFields = formData.get("customfields");
 		if (customFields == "on")
 			boolCustomfields = true;
 		
