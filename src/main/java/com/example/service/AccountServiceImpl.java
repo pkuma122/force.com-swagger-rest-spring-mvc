@@ -15,23 +15,13 @@ public class AccountServiceImpl implements AccountService{
 	LoginService loginService;
 	
 	@Override
-	public List<Account> listAccounts() throws AccountErrors{
-		List<Account> listOfAccounts = loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
-		if (listOfAccounts!=null){
-			return listOfAccounts;
-		} else{
-			throw new AccountErrors("{status: no accounts to display}");
-		}
+	public List<Account> listAccounts(){
+		return  loginService.getForceApi().query("SELECT Name FROM Account", Account.class).getRecords();
 	}
 
 	@Override
-	public Account findAccountById(String accountToFind) throws AccountErrors {
-		Account foundAccount = loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
-		if (foundAccount!=null){
-			return foundAccount;
-		} else{
-			 throw new AccountErrors("{status: account not found}");
-		}
+	public Account findAccountById(String accountToFind) {
+		return loginService.getForceApi().getSObject("account", accountToFind).as(Account.class);
 	}
 
 	@Override
