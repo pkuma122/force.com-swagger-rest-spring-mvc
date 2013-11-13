@@ -41,7 +41,7 @@ public class ModelGeneratorController {
 			@RequestParam(value="sobject") String sobject,  
 			@RequestParam(value="version") String version,
 			@RequestParam(value="packageName") String packageName,
-			@RequestParam(value="customFileds") String customFields,
+			@RequestParam(value="customfields") String customFields,
 			HttpServletResponse response) throws IOException{
 	
 		boolean boolCustomfields = false;
