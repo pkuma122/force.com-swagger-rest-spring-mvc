@@ -45,7 +45,7 @@ Then run it with:
 
 Clone this project locally:
 
-    $ git clone git://github.com/jamesward/hello-java-spring-force_dot_com.git
+    $ git clone git://github.com/thysmichels/force.com-swagger-rest-spring-mvc-heroku.git
 
 Create a new app on Heroku (make sure you have the [Heroku Toolbelt](http://toolbelt.heroku.com) installed):
 
