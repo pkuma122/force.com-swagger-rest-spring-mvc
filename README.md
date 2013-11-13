@@ -3,7 +3,7 @@
 ## What is Swagger?
 Swagger is a specification and complete framework implementation for describing, producing, consuming, and visualizing RESTful web services.
 
-## Descibing your REST Endpoints
+## Describing your REST Endpoints
 Describing your end point providing contextual metadata on what the purpose is of the service end point. How providing an interface to enter request parameters or provide the structure of the accepted JSON. After the service end point has been invoked output will be in the specified format.This provides a easier way to develop, test and document your service end points.
 
 ## Developing and Consuming your REST Endpoints
