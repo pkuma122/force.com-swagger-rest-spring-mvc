@@ -36,7 +36,7 @@ public class ModelGenerator {
  
 	        String className = describe.getName();
 	        if(describe.isCustom()) {
-	        	className = className.substring(0,className.length()-3);
+	        	className = className.substring(0,className.length());
 	        }
 
 	        if(packageName == null || packageName.isEmpty()) {
@@ -49,10 +49,10 @@ public class ModelGenerator {
 	        
 	        Set<Field> fieldNames = new HashSet<Field>();
 	        for(Field f : describe.getFields()) {
-	        	if (customfields)
+	        	if (!f.isCustom())
 	        		fieldNames.add(f);
-	        	else if (!f.isCustom())
-	        		fieldNames.add(f);
+	        	else if (customfields)
+	        		 fieldNames.add(f);
 	        }
 	        
 	        // package
@@ -73,7 +73,7 @@ public class ModelGenerator {
 	        // class comment block
 	        write(out,"/**" + NEWLINE);
 	        write(out," * Generated from information gathered from /services/data/" + apiVersion + 
-	                "/sobjects/" + describe.getName() + "/describe" + NEWLINE);
+	                "/sobjects/" + className + "/describe" + NEWLINE);
 	        write(out," */" + NEWLINE);
 	        
 	        // class begin
@@ -168,9 +168,7 @@ public class ModelGenerator {
 	            write(out,TAB + "public " + getJavaType(field) + " get" + capitalize(field.getName()) + "() {"
 	                    + NEWLINE);
 	            write(out,TAB + TAB + "return " + fieldNameLower + ";" + NEWLINE);
-	            write(out,TAB + "}" + NEWLINE);
-	            
-	                  
+	            write(out,TAB + "}" + NEWLINE);      
 	        }
 	        
 	        // add setters for all fields
