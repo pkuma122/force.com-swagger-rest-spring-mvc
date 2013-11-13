@@ -5,23 +5,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.force.api.DescribeSObject;
 import com.example.service.ControllerGenerator;
 import com.example.service.LoginService;
 
@@ -40,16 +35,7 @@ public class GenerateControllerController {
 	}
 	
 	@RequestMapping(value="/generate",  method=RequestMethod.POST)
-	public void generateSalesforceController(Map<String, Object> map, Object command, HttpServletRequest request, HttpServletResponse response) throws IOException{
-		final ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(
-				request);
-		final Map<String, String> formData = new FormHttpMessageConverter()
-				.read(null, inputMessage).toSingleValueMap();
-		
-		List<String> operationsList = new ArrayList<String>();
-	
-		String sobjectName = formData.get("sobject");
-		String packageName = formData.get("packageName");
+	public void generateSalesforceController(Map<String, Object> map, Object command, @RequestParam(value="sobject") String sobjectName, @RequestParam(value="packageName") String packageName, HttpServletResponse response) throws IOException{
 		
 		File file = File.createTempFile(sobjectName, ".java");
 		FileInputStream fileIn = new FileInputStream(file);

@@ -57,6 +57,7 @@ public class ModelGeneratorController {
 	    cgs.generateCodeStandardAndCustomFields(output, ds, version, packageName, boolCustomfields);
 	    output.flush();
 	    output.close();
+	    
 	    try {
 	    	IOUtils.copy(fileIn, response.getOutputStream());
 	    	response.flushBuffer();
@@ -67,5 +68,4 @@ public class ModelGeneratorController {
 	    	 file.deleteOnExit();
 	     }
 	}
-
 }
