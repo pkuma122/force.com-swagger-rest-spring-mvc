@@ -23,6 +23,11 @@
     </repositories>
 
     <dependencies>
+    	<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
         <dependency>
             <groupId>com.github.twitter</groupId>
             <artifactId>bootstrap</artifactId>

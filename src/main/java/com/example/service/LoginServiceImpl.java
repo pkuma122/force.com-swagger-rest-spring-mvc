@@ -10,7 +10,6 @@ import com.force.sdk.oauth.context.SecurityContext;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	@Override
 	public ForceApi getForceApi() {
 		SecurityContext sc = ForceSecurityContextHolder.get();
 
