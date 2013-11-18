@@ -24,20 +24,20 @@ public class Main {
 			
 			//CREATEING new Account and returning the Account ID
 			String accountId = api.createSObject("account", a);
-			System.out.println("*** Created New Account ID *** " + accountId);
+			System.out.println("*** CREATE: New Account ID *** " + accountId);
 			
 			//READING new Account
 			Account account = api.getSObject("Account",accountId).as(Account.class);
-			System.out.println("*** Reading Account Name *** " + account.getName());
+			System.out.println("*** READ: Account Name *** " + account.getName());
 			
 			//Update the Account with a new name
 			a.setName("Updated Test Account");
 			api.updateSObject("account", accountId, a);
-			System.out.println("*** Updating Account Name *** " + api.getSObject("Account",accountId).as(Account.class).getName());
+			System.out.println("*** UPDATE: Account Name *** " + api.getSObject("Account",accountId).as(Account.class).getName());
 			
 			//DELETING the Account
 			api.deleteSObject("account", accountId);
-			System.out.println("*** Delete Account *** " + api.getSObject("Account",accountId).as(Account.class).getName());
+			System.out.println("*** DELETE: Account *** " + api.getSObject("Account",accountId).as(Account.class).getName());
 		
 		}catch(ApiException e){
 			System.out.println("*** ERROR *** " + e.getMessage());
