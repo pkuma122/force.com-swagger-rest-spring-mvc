@@ -12,6 +12,78 @@ Developing of services is easy through the use of Swagger specific annotations y
 ## Visualizing your REST Endpoints
 The visualizing of service end point provides an great overview of all the service end points, all the services requests per end point and also metadata about service each end points.
 
+##REST API Login Configuration
+
+    package com.example.main;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.context.annotation.PropertySource;
+    import org.springframework.core.env.Environment;
+    import com.force.api.ApiConfig;
+    import com.force.api.ForceApi;
+    
+    @PropertySource("classpath:/salesforcelogin.properties")
+    @Configuration
+    public class LoginConfiguration {
+	
+	@Autowired Environment environment;
+	
+	@Bean
+	public ForceApi loginToSalesforce(){
+		if (environment.getProperty("SALESFORCEUSERNAME")!=null && environment.getProperty("SALESFORCEPASSWORD")!=null)
+			return new ForceApi(new ApiConfig().setUsername(environment.getProperty("SALESFORCEUSERNAME")).setPassword(environment.getProperty("SALESFORCEPASSWORD")));
+		return null;
+	}
+    }
+
+## Main class
+
+    import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+    import com.example.model.Account;
+    import com.force.api.ApiException;
+    import com.force.api.ForceApi;
+
+    public class Main {
+
+	public static void main(String[] args) {
+		try{
+			AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+	        applicationContext.getEnvironment().setActiveProfiles("default");
+	        applicationContext.scan(LoginConfiguration.class.getPackage().getName());
+	        applicationContext.refresh();
+			     
+			//Connecting to Force.com REST API
+	        ForceApi api =applicationContext.getBean(ForceApi.class);
+			
+			//Setting account name using Account POJO
+			Account a = new Account();
+			a.setName("Test account");
+			
+			//CREATEING new Account and returning the Account ID
+			String accountId = api.createSObject("account", a);
+			System.out.println("*** CREATE: New Account ID *** " + accountId);
+			
+			//READING new Account
+			Account account = api.getSObject("Account",accountId).as(Account.class);
+			System.out.println("*** READ: Account Name *** " + account.getName());
+			
+			//Update the Account with a new name
+			a.setName("Updated Test Account");
+			api.updateSObject("account", accountId, a);
+			System.out.println("*** UPDATE: Account Name *** " + api.getSObject("Account",accountId).as(Account.class).getName());
+			
+			//DELETING the Account
+			api.deleteSObject("account", accountId);
+			System.out.println("*** DELETE: Account *** " + api.getSObject("Account",accountId).as(Account.class).getName());
+		
+		}catch(ApiException e){
+			System.out.println("*** ERROR *** " + e.getMessage());
+		}
+	}
+    }
+
 ## Running the application locally
 
 Setup OAuth Remote Access in Salesforce.com
