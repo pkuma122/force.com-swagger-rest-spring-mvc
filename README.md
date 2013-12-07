@@ -142,3 +142,8 @@ Open the app in your browser:
 
     $ heroku open
 
+##Resources
+[Youtube](https://www.youtube.com/watch?v=8Z9qva1nv1c)
+
+[PowerPoint Presentation](http://oriontech.files.wordpress.com/2013/11/df13_exposing-salesforce-rest-service-using-swagger.ppt)
+
