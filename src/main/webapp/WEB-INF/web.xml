@@ -45,4 +45,9 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/assets/*</url-pattern>
     </servlet-mapping>
+         
+    <listener>
+         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>     
+         
 </web-app>
